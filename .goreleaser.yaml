@@ -1,0 +1,42 @@
+version: 2
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w
+      - -X github.com/fanghanjun/cctop/pkg/version.Version={{.Version}}
+      - -X github.com/fanghanjun/cctop/pkg/version.BuildTime={{.Date}}
+
+archives:
+  - formats: ['tar.gz']
+    format_overrides:
+      - goos: windows
+        formats: ['zip']
+
+brews:
+  - repository:
+      owner: fanghanjun
+      name: homebrew-tap
+    homepage: "https://github.com/fanghanjun/cctop"
+    description: "Terminal monitoring dashboard for Claude Code usage"
+    license: "MIT"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+      - "^chore:"
