@@ -29,6 +29,7 @@ brews:
   - repository:
       owner: SttFang
       name: homebrew-tap
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
     homepage: "https://github.com/SttFang/cctop"
     description: "Terminal monitoring dashboard for Claude Code usage"
     license: "MIT"
